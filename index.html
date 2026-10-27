@@ -1,3 +1,5 @@
+Warning: fs was declared with const; use let for reassignable variables.
+Warning: html was declared with const; use let for reassignable variables.
 <!doctype html>
 <html lang="es">
 <head>
@@ -147,6 +149,11 @@
 @media(max-width:410px){.horror-cover-overlay .horror-capture-label{font-size:7px;padding:5px 6px}}
 
 </style>
+  <style>
+    .site-nav .nav-linkedin{border:1px solid #49414a;color:#fff;border-radius:5px;padding:10px 15px}
+    .nav-linkedin span{color:var(--red);margin-left:10px}
+    .site-nav .nav-linkedin:hover{border-color:#777;background:#24242b}
+  </style>
   
 </head>
 <body>
@@ -168,6 +175,7 @@
         <a href="#proyectos">Proyectos</a>
         <a href="#tecnologias">Tecnologías</a>
         <a href="#trayectoria">Trayectoria</a>
+        <a class="nav-linkedin" href="https://www.linkedin.com/in/sergio-salido-garc%C3%ADa/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         <a class="nav-contact" href="#contacto">Contacto <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
