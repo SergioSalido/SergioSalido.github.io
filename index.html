@@ -237,6 +237,15 @@
 .chinook-lightbox img{display:block;width:100%;max-width:none;max-height:none;height:auto;margin:0 auto;object-fit:contain}
 @media(max-width:620px){.chinook-lightbox{padding:8px;width:98vw;height:93vh}.chinook-lightbox .chinook-viewer{height:calc(100% - 100px)}.chinook-lightbox .chinook-dialog-actions{width:100%;justify-content:space-between}}
 @media(max-width:620px){.chinook-gallery{grid-template-columns:1fr}.chinook-gallery img{height:180px}}
+
+/* Visor legible de Chinook: texto vectorial y captura, sin escalar letras diminutas. */
+.chinook-readout{margin:0;background:#12151a;color:#e9ecf0;font:clamp(13px,1.18vw,18px)/1.65 "Cascadia Code",Consolas,monospace;white-space:pre;overflow:auto;padding:22px 24px;min-width:0;min-height:200px;tab-size:2}
+.chinook-lightbox .chinook-viewer{height:calc(100% - 55px);text-align:left}
+.chinook-lightbox .chinook-viewer img{max-width:none;image-rendering:pixelated}
+.chinook-dialog-actions .chinook-switch{background:#283a37;border-color:#4c807a}
+.chinook-lightbox .chinook-viewer[data-mode="text"] img{display:none!important}
+.chinook-lightbox .chinook-viewer[data-mode="image"] .chinook-readout{display:none!important}
+@media(max-width:620px){.chinook-readout{font-size:13px;padding:14px}}
 </style>
 </head>
 <body>
@@ -730,8 +739,8 @@ if (year) year.textContent = String(new Date().getFullYear());
 
 
 <dialog id="chinookLightbox" class="chinook-lightbox" aria-label="Captura de Chinook ampliada">
- <div class="chinook-dialog-bar"><strong id="chinookDialogCaption">Captura de Chinook</strong><div class="chinook-dialog-actions"><button type="button" id="chinookZoomOut" aria-label="Reducir imagen">−</button><span id="chinookZoomValue" aria-live="polite">100%</span><button type="button" id="chinookZoomIn" aria-label="Ampliar imagen">+</button><button type="button" id="chinookZoomReset">Ajustar</button><button id="chinookDialogClose" type="button">Cerrar ×</button></div></div>
- <div class="chinook-viewer" id="chinookViewer"><img id="chinookDialogImg" alt="Captura ampliada del proyecto Chinook"></div>
+ <div class="chinook-dialog-bar"><strong id="chinookDialogCaption">Captura de Chinook</strong><div class="chinook-dialog-actions"><button id="chinookToggleMode" type="button" class="chinook-switch">Ver captura</button><button type="button" id="chinookZoomOut" aria-label="Reducir imagen">−</button><span id="chinookZoomValue" aria-live="polite">100%</span><button type="button" id="chinookZoomIn" aria-label="Ampliar imagen">+</button><button type="button" id="chinookZoomReset">Ajustar</button><button id="chinookDialogClose" type="button">Cerrar ×</button></div></div>
+ <div class="chinook-viewer" id="chinookViewer" data-mode="text"><pre class="chinook-readout" id="chinookReadout" aria-label="Texto legible de la captura"></pre><img id="chinookDialogImg" alt="Captura del proyecto Chinook"></div>
 </dialog>
 
 <script>
@@ -744,6 +753,153 @@ if (year) year.textContent = String(new Date().getFullYear());
  const viewer=document.getElementById('chinookDialogImg');
  const caption=document.getElementById('chinookDialogCaption');
  const area=document.getElementById('chinookViewer');
+ const readout=document.getElementById('chinookReadout');
+ const switchMode=document.getElementById('chinookToggleMode');
+ const readable=[
+`CHINOOK MVC · ESTRUCTURA DEL PROYECTO
+
+Chinook_MVC_Comentado/
+  src/main/java/es/prometeo/
+    conexion/
+      Conexion.java
+    controlador/
+      AlbumController.java
+      ArtistController.java
+    dao/
+      AlbumDAO.java
+      AlbumDAOImpl.java
+      ArtistDAO.java
+      ArtistDAOImpl.java
+    modelo/
+      Album.java
+      Artist.java
+    vista/
+      AlbumView.java
+      ArtistView.java
+    App.java
+  pom.xml
+  glosario.txt
+
+App.java
+
+public class App {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    AlbumController albums = new AlbumController(
+      new AlbumDAOImpl(), new AlbumView(scanner));
+    ArtistController artistas = new ArtistController(
+      new ArtistDAOImpl(), new ArtistView(scanner));
+
+    // Menú principal: álbumes y artistas
+  }
+}`,
+`===== CHINOOK =====
+1. Gestión de álbumes
+2. Gestión de artistas
+0. Salir
+Opción: 1
+
+===== GESTIÓN DE ÁLBUMES =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar álbum
+4. Actualizar álbum
+5. Eliminar álbum
+0. Volver
+Opción: 1
+
+Álbum [id=1, título=For Those About To Rock We Salute You, artistId=1]
+Álbum [id=2, título=Balls to the Wall, artistId=2]
+Álbum [id=3, título=Restless and Wild, artistId=2]
+Álbum [id=4, título=Let There Be Rock, artistId=1]
+Álbum [id=5, título=Big Ones, artistId=3]
+Álbum [id=6, título=Jagged Little Pill, artistId=4]
+Álbum [id=7, título=Facelift, artistId=5]
+Álbum [id=8, título=Warner 25 Anos, artistId=6]
+Álbum [id=9, título=Plays Metallica By Four Cellos, artistId=7]
+Álbum [id=10, título=Audioslave, artistId=8]
+Álbum [id=11, título=Out Of Exile, artistId=8]
+Álbum [id=12, título=BackBeat Soundtrack, artistId=9]
+Álbum [id=13, título=The Best Of Billy Cobham, artistId=10]
+Álbum [id=14, título=Alcohol Fueled Brewtality Live! [Disc 1], artistId=11]
+Álbum [id=15, título=Alcohol Fueled Brewtality Live! [Disc 2], artistId=11]
+Álbum [id=16, título=Black Sabbath, artistId=12]
+Álbum [id=17, título=Black Sabbath Vol. 4 (Remaster), artistId=12]
+Álbum [id=18, título=Body Count, artistId=13]
+Álbum [id=19, título=Chemical Wedding, artistId=14]
+Álbum [id=20, título=The Best Of Buddy Guy, artistId=15]`,
+`===== GESTIÓN DE ÁLBUMES =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar álbum
+4. Actualizar álbum
+5. Eliminar álbum
+0. Volver
+Opción: 2
+
+ID del álbum: 14
+Álbum [id=14, título=Alcohol Fueled Brewtality Live! [Disc 1], artistId=11]
+
+===== GESTIÓN DE ÁLBUMES =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar álbum
+4. Actualizar álbum
+5. Eliminar álbum
+0. Volver
+Opción:`,
+`===== CHINOOK =====
+1. Gestión de álbumes
+2. Gestión de artistas
+0. Salir
+Opción: 2
+
+===== GESTIÓN DE ARTISTAS =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar artista
+4. Actualizar artista
+5. Eliminar artista
+6. Listar artistas con sus álbumes
+0. Volver
+Opción: 1
+
+Artist [id=43, nombre=A Cor Do Som]
+Artist [id=230, nombre=Aaron Copland & London Symphony Orchestra]
+Artist [id=202, nombre=Aaron Goldberg]
+Artist [id=1, nombre=AC/DC]
+Artist [id=214, nombre=Academy of St. Martin in the Fields & Sir Neville Marriner]
+Artist [id=215, nombre=Academy of St. Martin in the Fields Chamber Ensemble & Sir Neville Marriner]
+Artist [id=2, nombre=Accept]
+Artist [id=260, nombre=Adrian Leaper & Doreen de Feis]
+Artist [id=3, nombre=Aerosmith]
+Artist [id=161, nombre=Aerosmith & Sierra Leone's Refugee Allstars]
+Artist [id=197, nombre=Aisha Duo]`,
+`===== GESTIÓN DE ARTISTAS =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar artista
+4. Actualizar artista
+5. Eliminar artista
+6. Listar artistas con sus álbumes
+0. Volver
+Opción: 3
+
+Nombre: WillyRex
+Artista insertado. ID generado: 276
+
+===== GESTIÓN DE ARTISTAS =====
+1. Listar todos
+2. Buscar por ID
+3. Insertar artista
+4. Actualizar artista
+5. Eliminar artista
+6. Listar artistas con sus álbumes
+0. Volver
+Opción:`
+ ];
+ const setMode = mode => {area.dataset.mode=mode;switchMode.textContent=mode==='text'?'Ver captura':'Ver texto nítido';area.scrollTop=0;area.scrollLeft=0;};
+ switchMode?.addEventListener('click',()=>setMode(area.dataset.mode==='text'?'image':'text'));
  const zoomValue=document.getElementById('chinookZoomValue');
  let zoom=1;
  const updateZoom=()=>{viewer.style.width=(zoom*100)+'%';zoomValue.textContent=Math.round(zoom*100)+'%';};
@@ -766,7 +922,10 @@ if (year) year.textContent = String(new Date().getFullYear());
  document.querySelectorAll('.chinook-image-button').forEach(button=>{
   button.addEventListener('click',()=>{
    const image=button.querySelector('img');if(!image?.src)return;
-   viewer.src=image.src;viewer.alt=image.alt;caption.textContent=button.dataset.caption||'Chinook';zoom=1;updateZoom();area.scrollTop=0;area.scrollLeft=0;
+   viewer.src=image.src;viewer.alt=image.alt;caption.textContent=button.dataset.caption||'Chinook';
+   const index=Number(image.dataset.chinookIndex);
+   readout.textContent=readable[index]||'Vista disponible en la captura';
+   setMode('text');zoom=1;updateZoom();area.scrollTop=0;area.scrollLeft=0;
    if(typeof dialog.showModal==='function')dialog.showModal();
   });
  });
