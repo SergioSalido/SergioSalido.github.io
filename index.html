@@ -146,6 +146,14 @@
 #horrorDialogImg{display:block;width:100%;max-height:calc(94vh - 105px);object-fit:contain;background:#08090a;border-radius:3px}
 @media(max-width:410px){.horror-cover-overlay .horror-capture-label{font-size:7px;padding:5px 6px}}
 
+
+/* La quinta tarjeta ocupa ambas columnas para evitar un hueco vacio. */
+@media(min-width:621px){
+  #projectGrid>#proyecto-chinook-mvc{column-span:all;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:100%;margin-top:6px;align-items:stretch}
+  #proyecto-chinook-mvc>.project-visual{height:auto;min-height:255px}
+  #proyecto-chinook-mvc>.project-info{display:flex;flex-direction:column;justify-content:center}
+  #proyecto-chinook-mvc>.project-info>p{min-height:0}
+}
 </style>
 </head>
 <body>
