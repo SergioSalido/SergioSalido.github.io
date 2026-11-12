@@ -574,7 +574,21 @@ filterButtons.forEach(button => {
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-pressed', String(active));
     });
-    projectCards.forEach(card => { card.hidden = selected !== 'todos' && card.dataset.category !== selected; });
+    projectCards.forEach(card => {
+      const visible = selected === 'todos' || card.dataset.category === selected;
+      card.hidden = !visible;
+      // Refuerzo: la hoja de estilos define display:flex para las tarjetas.
+      // Usamos !important también en el estilo en línea para que el filtro prevalezca.
+      if (visible) {
+        card.style.removeProperty('display');
+        card.removeAttribute('aria-hidden');
+      } else {
+        card.style.setProperty('display', 'none', 'important');
+        card.setAttribute('aria-hidden', 'true');
+        const details = card.querySelector('details');
+        if (details) details.open = false;
+      }
+    });
   });
 });
 
