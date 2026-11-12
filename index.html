@@ -175,6 +175,16 @@
   flex-direction:column;
 }
 #projectGrid>.project-card>.project-info>details{margin-top:auto}
+#projectGrid>.project-card>.project-info>p:not(.project-ai-notice):not(.horror-beta-note){
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:4;
+  line-clamp:4;
+  overflow:hidden;
+}
+#projectGrid>.project-card>.project-info>.tags{margin-top:auto}
+#projectGrid>.project-card>.project-info>details{margin-top:0}
+#projectGrid details:not([open])>*:not(summary){display:none!important}
 #projectGrid>#proyecto-chinook-mvc{
   grid-column:1 / -1;
   justify-self:center;
