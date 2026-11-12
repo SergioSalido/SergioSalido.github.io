@@ -185,6 +185,20 @@
 #projectGrid>.project-card>.project-info>.tags{margin-top:auto}
 #projectGrid>.project-card>.project-info>details{margin-top:0}
 #projectGrid details:not([open])>*:not(summary){display:none!important}
+/* Los detalles abiertos no deben agrandar todas las filas del grid ni desplazar la vista. */
+#projectGrid:has(details[open]){grid-auto-rows:auto}
+#projectGrid>.project-card:has(details[open]){
+  grid-column:1/-1;
+  justify-self:stretch;
+  width:100%;
+}
+#projectGrid>.project-card:has(details[open])>.project-info>details{margin-top:14px}
+#projectGrid>.project-card:has(details[open])>.project-info>details[open]{
+  border-top:1px solid #373138;
+}
+@media(max-width:620px){
+  #projectGrid>.project-card:has(details[open]){grid-column:auto}
+}
 #projectGrid>#proyecto-chinook-mvc{
   grid-column:1 / -1;
   justify-self:center;
