@@ -200,14 +200,10 @@
 @media(max-width:620px){
   #projectGrid>.project-card:has(details[open]){grid-column:auto}
 }
-#projectGrid>#proyecto-chinook-mvc{
-  grid-column:1 / -1;
-  justify-self:center;
-  width:calc((100% - 22px)/2);
-}
+#projectGrid>#proyecto-chinook-mvc{grid-column:auto;justify-self:stretch;width:100%;}
 @media(max-width:820px) and (min-width:621px){
   #projectGrid{gap:16px}
-  #projectGrid>#proyecto-chinook-mvc{width:calc((100% - 16px)/2)}
+  #projectGrid>#proyecto-chinook-mvc{width:100%}
   #projectGrid>.project-card>.project-visual{height:210px;min-height:210px;flex-basis:210px}
 }
 @media(max-width:620px){
