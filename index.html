@@ -246,6 +246,20 @@
 .chinook-lightbox .chinook-viewer[data-mode="text"] img{display:none!important}
 .chinook-lightbox .chinook-viewer[data-mode="image"] .chinook-readout{display:none!important}
 @media(max-width:620px){.chinook-readout{font-size:13px;padding:14px}}
+
+/* EclipseBot: tarjeta de proyecto con capturas reales */
+.eclipsebot-cover{display:block;position:relative;isolation:isolate;background:#09090c;overflow:hidden}
+.eclipsebot-cover img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#09090c;transition:transform .25s}
+.project-card:hover .eclipsebot-cover img{transform:scale(1.025)}
+.eclipsebot-cover-label{position:absolute;z-index:2;left:12px;top:12px;padding:7px 9px;background:rgba(8,8,10,.85);border:1px solid rgba(235,230,240,.28);color:#eeeaf0;font:9px var(--mono);letter-spacing:.1em}
+.eclipsebot-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}
+.eclipsebot-gallery a{display:block;border:1px solid #37333b;border-radius:5px;overflow:hidden;background:#09090c;line-height:0}
+.eclipsebot-gallery a:first-child{grid-column:1/-1}
+.eclipsebot-gallery img{display:block;width:100%;height:180px;object-fit:contain;object-position:top center;background:#09090c}
+.eclipsebot-gallery a:first-child img{height:260px}
+.eclipsebot-page-link{display:inline-flex;margin-top:14px;padding:9px 12px;border:1px solid #594048;border-radius:4px;color:#f0ced2;font-size:11px;font-weight:700;transition:background .18s,color .18s,border-color .18s}
+.eclipsebot-page-link:hover{background:#3b252d;border-color:#9c5b65;color:#fff}
+@media(max-width:620px){.eclipsebot-gallery img,.eclipsebot-gallery a:first-child img{height:190px}}
 </style>
 </head>
 <body>
@@ -512,6 +526,28 @@
               </details>
             </div>
           </article>
+        <article class="project-card" data-category="personal" id="proyecto-eclipsebot">
+          <a class="project-visual eclipsebot-cover" href="https://sergiosalido.github.io/eclipsebot/" aria-label="Abrir la página de EclipseBot">
+            <img src="eclipsebot/assets/screens/eclipsebot-inicio.png" alt="Captura real del centro de control de EclipseBot" loading="lazy">
+            <span class="eclipsebot-cover-label">APLICACIÓN DE ESCRITORIO · WINDOWS</span>
+          </a>
+          <div class="project-info">
+            <div class="project-meta"><span>PROYECTO PERSONAL / 2026</span><span class="project-state"><span class="small-dot"></span> EN DESARROLLO</span></div>
+            <h3>EclipseBot · control para directos</h3>
+            <p>Aplicación de escritorio para gestionar Twitch, chat, alertas, overlays y comandos de voz desde un mismo panel. La integración de TikTok está desactivada en la versión actual y aparece como «Próximamente».</p>
+            <div class="tags"><span>Python</span><span>Twitch</span><span>Tkinter</span><span>OBS</span><span>Vosk</span></div>
+            <details class="project-details">
+              <summary>Ver capturas y página web <span aria-hidden="true">↗</span></summary>
+              <div class="eclipsebot-gallery">
+                <a href="eclipsebot/assets/screens/eclipsebot-inicio.png" target="_blank" rel="noopener"><img src="eclipsebot/assets/screens/eclipsebot-inicio.png" alt="Centro de control de EclipseBot"></a>
+                <a href="eclipsebot/assets/screens/eclipsebot-twitch.png" target="_blank" rel="noopener"><img src="eclipsebot/assets/screens/eclipsebot-twitch.png" alt="Apartado Twitch de EclipseBot"></a>
+                <a href="eclipsebot/assets/screens/eclipsebot-ajustes.png" target="_blank" rel="noopener"><img src="eclipsebot/assets/screens/eclipsebot-ajustes.png" alt="Ajustes de EclipseBot"></a>
+              </div>
+              <p class="project-note">Capturas reales de una compilación anterior de desarrollo. La página del proyecto explica el estado actual y enlaza a la descarga.</p>
+              <a class="eclipsebot-page-link" href="https://sergiosalido.github.io/eclipsebot/" target="_blank" rel="noopener">Visitar la página de EclipseBot ↗</a>
+            </details>
+          </div>
+        </article>
         </div>
       </div>
     </section>
